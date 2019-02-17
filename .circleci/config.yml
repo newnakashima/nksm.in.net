@@ -5,6 +5,9 @@ jobs:
   build:
     docker:
       - image: 'circleci/python:2.7'
+  deploy:
+    docker:
+      - image: 'circleci/python:2.7'
     steps:
       - checkout
       - aws-s3/sync:
@@ -16,6 +19,8 @@ workflows:
   version: 2
   deploy:
     jobs:
-      - build:
-          branches:
-            only: master
+      - build
+      - deploy:
+          filters:
+            branches:
+              only: master

@@ -5,6 +5,10 @@ jobs:
   build:
     docker:
       - image: 'circleci/python:2.7'
+    steps:
+      - run
+        name: "Image built"
+        command: "echo 'Image build.'"
   deploy:
     docker:
       - image: 'circleci/python:2.7'

@@ -5,16 +5,18 @@ jobs:
   build:
     docker:
       - image: 'circleci/python:2.7'
-
-    branches:
-        only:
-          - master
-
     steps:
       - checkout
-
       - aws-s3/sync:
           from: dist
           to: 's3://nksm.in.net/'
           overwrite: true
 
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - build:
+        filters:
+          branches:
+            only: master

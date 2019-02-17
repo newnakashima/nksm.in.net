@@ -1,19 +1,16 @@
-version: 2
+version: 2.1
+  orbs:
+    aws-s3:circleci/aws-s3@1.0.0
 jobs:
   build:
     docker:
-      - image: debian:stretch
+      - image: 'circleci/python:2.7'
 
     steps:
       - checkout
 
-      - run:
-          name: Greeting
-          command: echo Hello, world.
+      - aws-s3/sync:
+          from: dist
+          to: 's3://nksm.in.net/'
+          overwrite: true
 
-      - run:
-          name: Print the Current Time
-          command: date
-      - run:
-          name: Aws Test
-          command: aws s3 ls

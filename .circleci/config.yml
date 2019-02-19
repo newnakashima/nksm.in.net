@@ -4,15 +4,15 @@ orbs:
 jobs:
   build:
     docker:
-      - image: 'circleci/python:2.7'
+      - image: 'newnakashima/nksm-in-net:latest'
     steps:
       - checkout
       - run:
-          name: Image built
-          command: echo 'Image build.'
+          name: "Elm build"
+          command: 'elm make src/main.elm --output=dist/js/main.js'
   deploy:
     docker:
-      - image: 'circleci/python:2.7'
+      - image: 'newnakashima/nksm-in-net:latest'
     steps:
       - checkout
       - aws-s3/sync:

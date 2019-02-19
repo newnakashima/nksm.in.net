@@ -8,6 +8,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: 'npm install'
+          command: 'npm install'
+      - run:
           name: 'npm run build'
           command: 'npm run build'
   deploy:
@@ -15,6 +18,9 @@ jobs:
       - image: 'newnakashima/nksm-in-net:latest'
     steps:
       - checkout
+      - run:
+          name: 'npm install'
+          command: 'npm install'
       - run:
           name: 'npm run build'
           command: 'npm run build'

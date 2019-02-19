@@ -8,16 +8,22 @@ jobs:
     steps:
       - checkout
       - run:
-          name: 'Elm build'
-          command: 'elm make src/main.elm --output=dist/js/main.js'
+          name: 'npm install'
+          command: 'npm install'
+      - run:
+          name: 'npm run build'
+          command: 'npm run build'
   deploy:
     docker:
       - image: 'newnakashima/nksm-in-net:latest'
     steps:
       - checkout
       - run:
-          name: 'Elm build'
-          command: 'elm make src/main.elm --output=dist/js/main.js'
+          name: 'npm install'
+          command: 'npm install'
+      - run:
+          name: 'npm run build'
+          command: 'npm run build'
       - aws-s3/sync:
           from: dist
           to: 's3://nksm.in.net/'

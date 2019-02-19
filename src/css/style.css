@@ -1,0 +1,46 @@
+@import "reset-css";
+
+@font-face {
+  font-family: "PixelMplus10";
+  src: url("fonts/PixelMplus10-Regular.woff");
+}
+
+body,code,html,kbd,pre,samp {
+  font-family: "PixelMplus10";
+}
+
+main,header {
+  width: 80%;
+  margin: 1rem auto;
+}
+
+h1 {
+  font-size: 3rem;
+  margin: 1rem 0;
+}
+
+h2 {
+  font-size: 2rem;
+  margin: 0.5rem 0;
+}
+
+div {
+  padding: 0 1rem;
+}
+
+dl dt {
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+}
+
+dl dd {
+  padding-left: 2rem;
+}
+
+@custom-media --sp screen and (width >= 768px);
+
+@media (--sp) {
+  main,header {
+    width: 60%;
+  }
+}

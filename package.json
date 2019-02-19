@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "elm make src/main.elm --output=dist/js/main.js"
+    "build": "npm run build:elm; npm run build:postcss",
+    "build:elm": "elm make src/main.elm --output=dist/js/main.js --optimize",
+    "build:postcss": "postcss src/css -d dist/css"
   },
   "repository": {
     "type": "git",
@@ -18,6 +20,10 @@
   },
   "homepage": "https://github.com/newnakashima/nksm.in.net#readme",
   "dependencies": {
+    "autoprefixer": "^9.4.7",
+    "postcss-custom-media": "^7.0.7",
+    "postcss-import": "^12.0.1",
+    "precss": "^4.0.0",
     "reset-css": "^4.0.1"
   }
 }

@@ -1,18 +1,6 @@
 import Browser exposing ( Document )
-import Html exposing
-  ( Html
-  , header
-  , main_
-  , h1
-  , h2
-  , div
-  , p
-  , text
-  , dl
-  , dt
-  , dd
-  , a
-  )
+import Html exposing (..)
+import Html.Attributes exposing (..)
 
 main = Browser.document
   { init = init
@@ -54,7 +42,19 @@ view model =
         ]
       , h2 [] [ text "BLOG" ]
       , div []
-        [ a [] [ text "test" ]
+        [ a
+          [ href "https://newnakashima.blogspot.com/"
+          , target "_blank"
+          ]
+          [ text "https://newnakashima.blogspot.com/" ]
+        ]
+      , h2 [] [ text "GitHub" ]
+      , div []
+        [ a
+          [ href "https://github.com/newnakashima"
+          , target "_blank"
+          ]
+          [ text "https://github.com/newnakashima" ]
         ]
       ]
     ]

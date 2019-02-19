@@ -4828,6 +4828,21 @@ var elm$html$Html$header = _VirtualDom_node('header');
 var elm$html$Html$main_ = _VirtualDom_node('main');
 var elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var elm$html$Html$text = elm$virtual_dom$VirtualDom$text;
+var elm$json$Json$Encode$string = _Json_wrap;
+var elm$html$Html$Attributes$stringProperty = F2(
+	function (key, string) {
+		return A2(
+			_VirtualDom_property,
+			key,
+			elm$json$Json$Encode$string(string));
+	});
+var elm$html$Html$Attributes$href = function (url) {
+	return A2(
+		elm$html$Html$Attributes$stringProperty,
+		'href',
+		_VirtualDom_noJavaScriptUri(url));
+};
+var elm$html$Html$Attributes$target = elm$html$Html$Attributes$stringProperty('target');
 var author$project$Main$view = function (model) {
 	return {
 		body: _List_fromArray(
@@ -4911,10 +4926,38 @@ var author$project$Main$view = function (model) {
 							[
 								A2(
 								elm$html$Html$a,
-								_List_Nil,
 								_List_fromArray(
 									[
-										elm$html$Html$text('test')
+										elm$html$Html$Attributes$href('https://newnakashima.blogspot.com/'),
+										elm$html$Html$Attributes$target('_blank')
+									]),
+								_List_fromArray(
+									[
+										elm$html$Html$text('https://newnakashima.blogspot.com/')
+									]))
+							])),
+						A2(
+						elm$html$Html$h2,
+						_List_Nil,
+						_List_fromArray(
+							[
+								elm$html$Html$text('GitHub')
+							])),
+						A2(
+						elm$html$Html$div,
+						_List_Nil,
+						_List_fromArray(
+							[
+								A2(
+								elm$html$Html$a,
+								_List_fromArray(
+									[
+										elm$html$Html$Attributes$href('https://github.com/newnakashima'),
+										elm$html$Html$Attributes$target('_blank')
+									]),
+								_List_fromArray(
+									[
+										elm$html$Html$text('https://github.com/newnakashima')
 									]))
 							]))
 					]))

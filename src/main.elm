@@ -43,10 +43,10 @@ view model =
       , h2 [] [ text "BLOG" ]
       , div []
         [ a
-          [ href "https://newnakashima.blogspot.com/"
+          [ href "https://blog.nksm.in.net"
           , target "_blank"
           ]
-          [ text "https://newnakashima.blogspot.com/" ]
+          [ text "https://blog.nksm.in.net" ]
         ]
       , h2 [] [ text "GitHub" ]
       , div []

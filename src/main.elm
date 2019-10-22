@@ -1,29 +1,80 @@
-import Browser exposing ( Document )
+import Browser
+import Browser.Navigation as Nav
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Url
+import Url.Parser exposing (Parser, parse, (</>), int, map, oneOf, s, string, top)
 
-main = Browser.document
+main : Program () Model Msg
+main = Browser.application
   { init = init
   , update = update
   , subscriptions = subscriptions
   , view = view
+  , onUrlChange = UrlChanged
+  , onUrlRequest = LinkClicked
   }
 
-type alias Model = Int
+type Route
+  = Misc String
+  | Home
+  | NotFound
 
-type alias Msg = String
+routeParser : Parser (Route -> a) a
+routeParser =
+  oneOf
+    [ map Misc (s "misc" </> string)
+    , map Home Url.Parser.top
+    ]
 
-init : () -> (Model, Cmd Msg)
-init _ = (0, Cmd.none)
+toRoute : String -> Route
+toRoute string =
+  case Url.fromString string of
+    Nothing ->
+      NotFound
+    Just url ->
+      Maybe.withDefault NotFound (parse routeParser url)
+
+type alias Model =
+  { key : Nav.Key
+  , url : Url.Url
+  }
+
+init : () -> Url.Url -> Nav.Key -> (Model, Cmd Msg)
+init flags url key =
+  case toRoute (Url.toString url) of
+    NotFound ->
+      ( Model key url, Cmd.none )
+    Misc page ->
+      ( Model key url, Cmd.none )
+    Home ->
+      ( Model key url, Cmd.none )
+  -- ( Model key url, Cmd.none )
+
+type Msg
+  = LinkClicked Browser.UrlRequest
+  | UrlChanged Url.Url
 
 update : Msg -> Model -> (Model, Cmd Msg)
-update msg model = (0, Cmd.none)
+update msg model =
+  case msg of
+    LinkClicked urlRequest ->
+      case urlRequest of
+        Browser.Internal url ->
+          ( model, Nav.pushUrl model.key ( Url.toString url ) )
+
+        Browser.External href ->
+          ( model, Nav.load href )
+    UrlChanged url ->
+      ( { model | url = url }
+      , Cmd.none
+      )
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
   Sub.none
 
-view : Model -> Document Msg
+view : Model -> Browser.Document Msg
 view model =
   { title = "newnakashimaのサイト"
   , body =
@@ -56,6 +107,18 @@ view model =
           ]
           [ text "https://github.com/newnakashima" ]
         ]
+      , h2 [] [ text "misc" ]
+      , div []
+        [
+          ul []
+          [ viewLink "/misc/ansible"
+          ]
+        ]
       ]
     ]
   }
+
+viewLink : String -> Html msg
+viewLink path =
+  li [] [ a [ href path ] [ text path ] ]
+

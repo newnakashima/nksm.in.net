@@ -35,21 +35,19 @@ toRoute string =
     Just url ->
       Maybe.withDefault NotFound (parse routeParser url)
 
+type Page
+  = AnsiblePage
+  | HomePage
+
 type alias Model =
   { key : Nav.Key
   , url : Url.Url
+  , page : Page
   }
 
 init : () -> Url.Url -> Nav.Key -> (Model, Cmd Msg)
 init flags url key =
-  case toRoute (Url.toString url) of
-    NotFound ->
-      ( Model key url, Cmd.none )
-    Misc page ->
-      ( Model key url, Cmd.none )
-    Home ->
-      ( Model key url, Cmd.none )
-  -- ( Model key url, Cmd.none )
+  ( Model key url HomePage, Cmd.none )
 
 type Msg
   = LinkClicked Browser.UrlRequest
@@ -61,14 +59,24 @@ update msg model =
     LinkClicked urlRequest ->
       case urlRequest of
         Browser.Internal url ->
-          ( model, Nav.pushUrl model.key ( Url.toString url ) )
+          case toRoute ( Url.toString url ) of
+            Misc "ansible" ->
+              ( { model | page = AnsiblePage }, Nav.pushUrl model.key ( Url.toString url ) )
+            _ ->
+              ( { model | page = HomePage }, Nav.pushUrl model.key ( Url.toString url ) )
 
         Browser.External href ->
           ( model, Nav.load href )
     UrlChanged url ->
-      ( { model | url = url }
-      , Cmd.none
-      )
+      case toRoute ( Url.toString url ) of
+        Misc "ansible" ->
+          ( { model | url = url, page = AnsiblePage }
+          , Cmd.none
+          )
+        _ ->
+          ( { model | url = url, page = HomePage }
+          , Cmd.none
+          )
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
@@ -76,49 +84,64 @@ subscriptions model =
 
 view : Model -> Browser.Document Msg
 view model =
-  { title = "newnakashimaのサイト"
-  , body =
-    [ header []
-      [ h1 [] [ text "newnakashimaのサイト" ]
-      ]
-    , main_ []
-      [ h2 [] [ text "ABOUT" ]
-      , div []
-        [ dl []
-          [ dt [] [ text "名前" ]
-          , dd [] [ text "newnakashima" ]
-          , dt [] [ text "職業" ]
-          , dd [] [ text "プログラマー" ]
+  case model.page of
+    AnsiblePage ->
+      { title = "ansible | wewnakashimaのサイト"
+      , body =
+        [ header []
+          [ h1 [] [ text "ansible" ]
           ]
         ]
-      , h2 [] [ text "BLOG" ]
-      , div []
-        [ a
-          [ href "https://newnakashima.github.io"
-          , target "_blank"
+      }
+    _ ->
+      { title = "newnakashimaのサイト"
+      , body =
+        [ header []
+          [ h1 [] [ text "newnakashimaのサイト" ]
           ]
-          [ text "https://newnakashima.github.io" ]
-        ]
-      , h2 [] [ text "GitHub" ]
-      , div []
-        [ a
-          [ href "https://github.com/newnakashima"
-          , target "_blank"
+        , main_ []
+          [ h2 [] [ text "ABOUT" ]
+          , div []
+            [ dl []
+              [ dt [] [ text "名前" ]
+              , dd [] [ text "newnakashima" ]
+              , dt [] [ text "職業" ]
+              , dd [] [ text "プログラマー" ]
+              ]
+            ]
+          , h2 [] [ text "BLOG" ]
+          , div []
+            [ a
+              [ href "https://newnakashima.github.io"
+              , target "_blank"
+              ]
+              [ text "https://newnakashima.github.io" ]
+            ]
+          , h2 [] [ text "GitHub" ]
+          , div []
+            [ a
+              [ href "https://github.com/newnakashima"
+              , target "_blank"
+              ]
+              [ text "https://github.com/newnakashima" ]
+            ]
+          , h2 [] [ text "misc" ]
+          , div []
+            [
+              ul []
+              [ viewLink "ansible snippets" "/misc/ansible"
+                "自分用のAnsible Playbookのスニペットです。"
+              ]
+            ]
           ]
-          [ text "https://github.com/newnakashima" ]
         ]
-      , h2 [] [ text "misc" ]
-      , div []
-        [
-          ul []
-          [ viewLink "/misc/ansible"
-          ]
-        ]
-      ]
-    ]
-  }
+      }
 
-viewLink : String -> Html msg
-viewLink path =
-  li [] [ a [ href path ] [ text path ] ]
+viewLink : String -> String -> String -> Html msg
+viewLink linkText link description =
+  li []
+  [ div []
+    [ a [ href link ] [ text linkText ] ]
+  , div [] [ text description ]
+  ]
 

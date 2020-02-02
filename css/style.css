@@ -1,12 +1,16 @@
 @import "reset-css";
 
+/*
 @font-face {
   font-family: "PixelMplus10";
   src: url("fonts/PixelMplus10-Regular.woff");
 }
+*/
 
 body,code,html,kbd,pre,samp {
-  font-family: "PixelMplus10";
+  /* font-family: "PixelMplus10"; */
+  font-family: monospace;
+  font-size: 1.2rem;
 }
 
 main,header {
@@ -21,8 +25,18 @@ h1 {
 
 h2 {
   font-size: 2rem;
-  margin: 0.5rem 0;
+  margin: 2rem 0 1rem 0;
 }
+
+h3 {
+  font-size: 1.5rem;
+  margin: 1rem 0 0.5rem 0;
+}
+
+p {
+  line-height: 1.5rem;
+}
+
 
 div {
   padding: 0 1rem;

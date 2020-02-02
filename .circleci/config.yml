@@ -28,6 +28,9 @@ jobs:
           from: dist
           to: 's3://nksm.in.net/'
           overwrite: true
+      - run:
+          name: 'invalidate cloudfront cache'
+          command: 'aws cloudfront create-invalidation --distribution-id="E1S9YOK0Q5IK9R" --paths="/*"'
 
 workflows:
   version: 2

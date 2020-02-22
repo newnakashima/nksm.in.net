@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run build:elm; npm run build:postcss",
     "build:elm": "elm make src/Main.elm --output=dist/js/main.js --optimize",
-    "build:postcss": "postcss css -d dist/css"
+    "build:postcss": "postcss css -d dist/css",
+    "serve": "http-server dist"
   },
   "repository": {
     "type": "git",

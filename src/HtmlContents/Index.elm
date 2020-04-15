@@ -27,10 +27,10 @@ index =
             , h2 [] [ text "BLOG" ]
             , div []
                 [ a
-                    [ href "https://blog-newnakashima.netlify.com/"
+                    [ href "https://blog-newnakashima.netlify.app/"
                     , target "_blank"
                     ]
-                    [ text "https://blog-newnakashima.netlify.com/" ]
+                    [ text "https://blog-newnakashima.netlify.app/" ]
                 ]
             , h2 [] [ text "GitHub" ]
             , div []

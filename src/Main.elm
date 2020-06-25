@@ -78,7 +78,7 @@ update msg model =
             case urlRequest of
                 Browser.Internal url ->
                     case toRoute (Url.toString url) of
-                        Misc "ansible" ->
+                        Misc "about" ->
                             ( { model | page = AboutPage }, Nav.pushUrl model.key (Url.toString url) )
 
                         _ ->

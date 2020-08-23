@@ -3,3 +3,4 @@ node_modules
 dist/js/*.js
 dist/css/*.css
 *.swp
+.DS_Store

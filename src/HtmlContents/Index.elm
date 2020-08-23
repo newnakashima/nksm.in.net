@@ -22,6 +22,22 @@ index =
                     , dd [] [ text "newnakashima" ]
                     , dt [] [ text "職業" ]
                     , dd [] [ text "プログラマー" ]
+                    , dt [] [ text "仕事で使う技術" ]
+                    , dd
+                        []
+                        [ ul
+                          []
+                          [ li [] [ text "PHP"]
+                          , li [] [ text "Laravel"]
+                          , li [] [ text "JavaScript"]
+                          , li [] [ text "TypeScript"]
+                          , li [] [ text "Python"]
+                          , li [] [ text "Linux"]
+                          , li [] [ text "Nginx"]
+                          , li [] [ text "MySQL"]
+                          , li [] [ text "AWS"]
+                          ]
+                        ]
                     ]
                 ]
             , h2 [] [ text "BLOG" ]
@@ -47,6 +63,13 @@ index =
                         "/#/misc/about"
                         "より詳細な自己紹介です。"
                     ]
+                ]
+            , h2 [] [ text "Prices" ]
+            , div []
+                [ a
+                    [ href "/#/prices"
+                    ]
+                    [ text "Prices"]
                 ]
             ]
         ]

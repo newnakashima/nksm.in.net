@@ -7,8 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run build:elm; npm run build:postcss",
     "build:elm": "elm make src/Main.elm --output=dist/js/main.js --optimize",
-    "build:postcss": "postcss css -d dist/css",
-    "serve": "http-server dist"
+    "build:postcss": "postcss css -d dist/css; mv dist/css/*.pcss dist/css/*.css",
+    "serve": "http-server -c-1 dist",
+    "format": "elm-format --yes src/",
+    "watch": "chokidar '{src,css}/**/*' -c 'npm run build'"
   },
   "repository": {
     "type": "git",
@@ -26,5 +28,9 @@
     "postcss-import": "^12.0.1",
     "precss": "^4.0.0",
     "reset-css": "^4.0.1"
+  },
+  "devDependencies": {
+    "chokidar-cli": "^2.1.0",
+    "elm-format": "^0.8.3"
   }
 }

@@ -2,6 +2,7 @@ module ContentsCommon exposing (pageTitle, viewLink)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import List exposing (map)
 
 
 pageTitle : String

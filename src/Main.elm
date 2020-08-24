@@ -7,8 +7,9 @@ import ContentsCommon exposing (pageTitle)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import HtmlContents.About exposing (about)
-import HtmlContents.Prices exposing (prices)
 import HtmlContents.Index exposing (index)
+import HtmlContents.Prices exposing (prices)
+import HtmlContents.Services exposing (services)
 import Msg exposing (Msg(..))
 import Url
 import Url.Parser exposing ((</>), Parser, map, oneOf, parse, s, string, top)
@@ -29,6 +30,7 @@ main =
 type Route
     = Misc String
     | Home
+    | Services
     | Prices
     | NotFound
 
@@ -38,6 +40,7 @@ routeParser =
     oneOf
         [ Url.Parser.map Misc (Url.Parser.s "misc" </> string)
         , Url.Parser.map Home top
+        , Url.Parser.map Services (Url.Parser.s "services")
         , Url.Parser.map Prices (Url.Parser.s "prices")
         ]
 
@@ -54,6 +57,7 @@ toRoute string =
 
 type Page
     = AboutPage
+    | ServicesPage
     | PricesPage
     | HomePage
 
@@ -70,6 +74,9 @@ init flags url key =
     case toRoute (Url.toString url) of
         Misc "about" ->
             ( Model key url AboutPage, Cmd.none )
+
+        Services ->
+            ( Model key url ServicesPage, Cmd.none )
 
         Prices ->
             ( Model key url PricesPage, Cmd.none )
@@ -88,6 +95,9 @@ update msg model =
                         Misc "about" ->
                             ( { model | page = AboutPage }, Nav.pushUrl model.key (Url.toString url) )
 
+                        Services ->
+                            ( { model | page = ServicesPage }, Nav.pushUrl model.key (Url.toString url) )
+
                         Prices ->
                             ( { model | page = PricesPage }, Nav.pushUrl model.key (Url.toString url) )
 
@@ -101,6 +111,11 @@ update msg model =
             case toRoute (Url.toString url) of
                 Misc "about" ->
                     ( { model | url = url, page = AboutPage }
+                    , Cmd.none
+                    )
+
+                Services ->
+                    ( { model | url = url, page = ServicesPage }
                     , Cmd.none
                     )
 
@@ -130,6 +145,9 @@ view model =
     case model.page of
         AboutPage ->
             about
+
+        ServicesPage ->
+            services
 
         PricesPage ->
             prices

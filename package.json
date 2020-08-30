@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run build:elm; npm run build:postcss",
     "build:elm": "elm make src/Main.elm --output=dist/js/main.js --optimize",
-    "build:postcss": "postcss css -d dist/css; mv dist/css/*.pcss dist/css/*.css",
+    "build:postcss": "postcss css -d dist/css; for filename in dist/css/*.pcss; do mv $filename ${filename%.pcss}.css; done",
     "serve": "http-server -c-1 dist",
     "format": "elm-format --yes src/",
     "watch": "chokidar '{src,css}/**/*' -c 'npm run build'"

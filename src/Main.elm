@@ -55,6 +55,22 @@ toRoute string =
             Maybe.withDefault NotFound (parse routeParser url)
 
 
+pageFromRoute : Route -> Page
+pageFromRoute route =
+    case route of
+        Misc "about" ->
+            AboutPage
+
+        Services ->
+            ServicesPage
+
+        Prices ->
+            PricesPage
+
+        _ ->
+            HomePage
+
+
 type Page
     = AboutPage
     | ServicesPage
@@ -91,43 +107,13 @@ update msg model =
         LinkClicked urlRequest ->
             case urlRequest of
                 Browser.Internal url ->
-                    case toRoute (Url.toString url) of
-                        Misc "about" ->
-                            ( { model | page = AboutPage }, Nav.pushUrl model.key (Url.toString url) )
-
-                        Services ->
-                            ( { model | page = ServicesPage }, Nav.pushUrl model.key (Url.toString url) )
-
-                        Prices ->
-                            ( { model | page = PricesPage }, Nav.pushUrl model.key (Url.toString url) )
-
-                        _ ->
-                            ( { model | page = HomePage }, Nav.pushUrl model.key (Url.toString url) )
+                    ( { model | page = Url.toString url |> toRoute |> pageFromRoute }, Nav.pushUrl model.key (Url.toString url) )
 
                 Browser.External href ->
                     ( model, Nav.load href )
 
         UrlChanged url ->
-            case toRoute (Url.toString url) of
-                Misc "about" ->
-                    ( { model | url = url, page = AboutPage }
-                    , Cmd.none
-                    )
-
-                Services ->
-                    ( { model | url = url, page = ServicesPage }
-                    , Cmd.none
-                    )
-
-                Prices ->
-                    ( { model | url = url, page = PricesPage }
-                    , Cmd.none
-                    )
-
-                _ ->
-                    ( { model | url = url, page = HomePage }
-                    , Cmd.none
-                    )
+            ( { model | url = url, page = Url.toString url |> toRoute |> pageFromRoute }, Cmd.none )
 
 
 subscriptions : Model -> Sub Msg

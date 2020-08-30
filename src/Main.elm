@@ -1,16 +1,18 @@
-module Main exposing (Model, Page(..), Route(..), init, main, routeParser, subscriptions, toRoute, update, view)
+module Main exposing (Model, Page(..), Route(..), init, main, pageTitle, routeParser, subscriptions, toRoute, update, view)
 
 import Browser
 import Browser.Hash as Hash
 import Browser.Navigation as Nav
-import ContentsCommon exposing (pageTitle, viewLink)
+import ContentsCommon exposing (pageTitle)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import HtmlContents.About exposing (about)
 import HtmlContents.Index exposing (index)
+import HtmlContents.Prices exposing (prices)
+import HtmlContents.Services exposing (services)
 import Msg exposing (Msg(..))
 import Url
-import Url.Parser exposing ((</>), Parser, int, map, oneOf, parse, s, string, top)
+import Url.Parser exposing ((</>), Parser, map, oneOf, parse, s, string, top)
 
 
 main : Program () Model Msg
@@ -28,6 +30,8 @@ main =
 type Route
     = Misc String
     | Home
+    | Services
+    | Prices
     | NotFound
 
 
@@ -35,7 +39,9 @@ routeParser : Parser (Route -> a) a
 routeParser =
     oneOf
         [ Url.Parser.map Misc (Url.Parser.s "misc" </> string)
-        , Url.Parser.map Home Url.Parser.top
+        , Url.Parser.map Home top
+        , Url.Parser.map Services (Url.Parser.s "services")
+        , Url.Parser.map Prices (Url.Parser.s "prices")
         ]
 
 
@@ -49,8 +55,26 @@ toRoute string =
             Maybe.withDefault NotFound (parse routeParser url)
 
 
+pageFromRoute : Route -> Page
+pageFromRoute route =
+    case route of
+        Misc "about" ->
+            AboutPage
+
+        Services ->
+            ServicesPage
+
+        Prices ->
+            PricesPage
+
+        _ ->
+            HomePage
+
+
 type Page
     = AboutPage
+    | ServicesPage
+    | PricesPage
     | HomePage
 
 
@@ -67,6 +91,12 @@ init flags url key =
         Misc "about" ->
             ( Model key url AboutPage, Cmd.none )
 
+        Services ->
+            ( Model key url ServicesPage, Cmd.none )
+
+        Prices ->
+            ( Model key url PricesPage, Cmd.none )
+
         _ ->
             ( Model key url HomePage, Cmd.none )
 
@@ -77,27 +107,13 @@ update msg model =
         LinkClicked urlRequest ->
             case urlRequest of
                 Browser.Internal url ->
-                    case toRoute (Url.toString url) of
-                        Misc "about" ->
-                            ( { model | page = AboutPage }, Nav.pushUrl model.key (Url.toString url) )
-
-                        _ ->
-                            ( { model | page = HomePage }, Nav.pushUrl model.key (Url.toString url) )
+                    ( { model | page = Url.toString url |> toRoute |> pageFromRoute }, Nav.pushUrl model.key (Url.toString url) )
 
                 Browser.External href ->
                     ( model, Nav.load href )
 
         UrlChanged url ->
-            case toRoute (Url.toString url) of
-                Misc "about" ->
-                    ( { model | url = url, page = AboutPage }
-                    , Cmd.none
-                    )
-
-                _ ->
-                    ( { model | url = url, page = HomePage }
-                    , Cmd.none
-                    )
+            ( { model | url = url, page = Url.toString url |> toRoute |> pageFromRoute }, Cmd.none )
 
 
 subscriptions : Model -> Sub Msg
@@ -115,6 +131,12 @@ view model =
     case model.page of
         AboutPage ->
             about
+
+        ServicesPage ->
+            services
+
+        PricesPage ->
+            prices
 
         _ ->
             index

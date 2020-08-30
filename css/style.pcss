@@ -1,0 +1,105 @@
+@import "reset-css";
+
+@font-face {
+    font-family: "PixelMplus10";
+    src: url("fonts/PixelMplus10-Regular.woff");
+}
+
+body,code,html,kbd,pre,samp {
+    font-family: "PixelMplus10";
+    /* font-family: monospace; */
+    font-size: 1.2rem;
+    word-break: break-all;
+}
+
+main,header {
+    width: 80%;
+    margin: 1rem auto;
+}
+
+footer {
+    background-color: gray;
+    color: white;
+    display: flex;
+    height: 5rem;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    font-size: 2rem;
+    margin: 1rem 0;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem 0;
+}
+
+h3 {
+    font-size: 1.3rem;
+    margin: 1rem 0 0.5rem 0;
+}
+
+p {
+    line-height: 1.5rem;
+}
+
+
+div {
+    padding: 0 1rem;
+}
+
+dl dt {
+    margin: 1rem 0 1rem 0;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    border-bottom: 3px solid black;
+}
+
+dl dd {
+    padding-left: 1rem;
+
+    li {
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-items: center;
+        &:before {
+            display: inline-block;
+            content: '';
+            width: .5rem;
+            height: .5rem;
+            background-color: #222;
+            margin-right: .5rem;
+        }
+    }
+}
+
+.flex-row {
+    display: flex;
+    border-bottom: 3px solid black;
+    padding-bottom: .5rem;
+    margin-bottom: .5rem;
+    margin-top: 1rem;
+
+    .flex-item {
+        flex: 1;
+    }
+}
+
+.work-spec, .application-spec {
+    li {
+        margin-left: 2rem;
+        margin-top: .5rem;
+        list-style: disc;
+    }
+}
+
+@custom-media --sp screen and (width >= 768px);
+
+@media (--sp) {
+    main,header {
+        width: 60%;
+    }
+}

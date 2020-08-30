@@ -24,6 +24,20 @@ index =
                     , dd [] [ text "プログラマー" ]
                     ]
                 ]
+            , h2 [] [ text "Services" ]
+            , div []
+                [ a
+                    [ href "/#/services"
+                    ]
+                    [ text "Services" ]
+                ]
+            , h2 [] [ text "Prices" ]
+            , div []
+                [ a
+                    [ href "/#/prices"
+                    ]
+                    [ text "Prices" ]
+                ]
             , h2 [] [ text "BLOG" ]
             , div []
                 [ a
@@ -42,11 +56,10 @@ index =
                 ]
             , h2 [] [ text "misc" ]
             , div []
-                [ ul []
-                    [ viewLink "より詳細な自己紹介"
-                        "/#/misc/about"
-                        "より詳細な自己紹介です。"
+                [ a
+                    [ href "/#/misc/about"
                     ]
+                    [ text "より詳細な自己紹介" ]
                 ]
             ]
         ]

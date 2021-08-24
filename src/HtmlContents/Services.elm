@@ -14,9 +14,9 @@ services =
             [ h1 [] [ text "Services" ]
             ]
         , main_ []
-            [ h2 [] [ text "WEB開発" ]
+            [ h2 [] [ text "Web開発" ]
             , p []
-                [ text "WEBの開発を行います。"
+                [ text "Webシステム・Webアプリの開発を行います。"
                 , br [] []
                 , text "PHP、Python、JavaScript、TypeScript、MySQLなどを使用します。"
                 , br [] []
@@ -26,7 +26,7 @@ services =
             , p []
                 [ text "スマートフォンアプリの開発を行います。"
                 , br [] []
-                , text "主にReactNativeとFirebase、AWS AmplifyなどのmBaaSを使用します。"
+                , text "要件に応じて適切な技術を選択します。"
                 ]
             , h2 [] [ text "AWS設計・構築" ]
             , p []
@@ -35,7 +35,7 @@ services =
                 , text "ECS、ECR、Lambdaなどのサービスを組み合わせて低コストなクラウド環境を構築します。"
                 ]
             , h2 [] [ text "やらないこと" ]
-            , p [] [ text "■WEBやアプリの画面デザインは行っておりません。" ]
+            , p [] [ text "■Webやアプリの画面デザインは行っておりません。" ]
             , p [] [ text "■レベニューシェア方式のお話はお断りさせていただいております。" ]
             , p [] [ text "■客先常駐のSESは行っておりません。" ]
             , p [] [ text "■ドキュメント作成のみのお仕事はお受けしておりません。" ]

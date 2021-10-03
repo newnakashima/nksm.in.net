@@ -8,8 +8,8 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import HtmlContents.About exposing (about)
 import HtmlContents.Index exposing (index)
-import HtmlContents.Prices exposing (prices)
-import HtmlContents.Services exposing (services)
+-- import HtmlContents.Prices exposing (prices)
+-- import HtmlContents.Services exposing (services)
 import Msg exposing (Msg(..))
 import Url
 import Url.Parser exposing ((</>), Parser, map, oneOf, parse, s, string, top)
@@ -30,8 +30,8 @@ main =
 type Route
     = Misc String
     | Home
-    | Services
-    | Prices
+    -- | Services
+    -- | Prices
     | NotFound
 
 
@@ -40,8 +40,8 @@ routeParser =
     oneOf
         [ Url.Parser.map Misc (Url.Parser.s "misc" </> string)
         , Url.Parser.map Home top
-        , Url.Parser.map Services (Url.Parser.s "services")
-        , Url.Parser.map Prices (Url.Parser.s "prices")
+        -- , Url.Parser.map Services (Url.Parser.s "services")
+        -- , Url.Parser.map Prices (Url.Parser.s "prices")
         ]
 
 
@@ -61,11 +61,11 @@ pageFromRoute route =
         Misc "about" ->
             AboutPage
 
-        Services ->
-            ServicesPage
+        -- Services ->
+        --     ServicesPage
 
-        Prices ->
-            PricesPage
+        -- Prices ->
+        --     PricesPage
 
         _ ->
             HomePage
@@ -73,8 +73,8 @@ pageFromRoute route =
 
 type Page
     = AboutPage
-    | ServicesPage
-    | PricesPage
+    -- | ServicesPage
+    -- | PricesPage
     | HomePage
 
 
@@ -91,11 +91,11 @@ init flags url key =
         Misc "about" ->
             ( Model key url AboutPage, Cmd.none )
 
-        Services ->
-            ( Model key url ServicesPage, Cmd.none )
+        -- Services ->
+        --     ( Model key url ServicesPage, Cmd.none )
 
-        Prices ->
-            ( Model key url PricesPage, Cmd.none )
+        -- Prices ->
+        --     ( Model key url PricesPage, Cmd.none )
 
         _ ->
             ( Model key url HomePage, Cmd.none )
@@ -132,11 +132,11 @@ view model =
         AboutPage ->
             about
 
-        ServicesPage ->
-            services
+        -- ServicesPage ->
+        --     services
 
-        PricesPage ->
-            prices
+        -- PricesPage ->
+        --     prices
 
         _ ->
             index

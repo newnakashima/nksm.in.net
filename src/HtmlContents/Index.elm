@@ -25,19 +25,19 @@ index =
                     ]
                 ]
             , h2 [] [ text "Services" ]
-            , div []
-                [ a
-                    [ href "/#/services"
-                    ]
-                    [ text "Services" ]
-                ]
-            , h2 [] [ text "Prices" ]
-            , div []
-                [ a
-                    [ href "/#/prices"
-                    ]
-                    [ text "Prices" ]
-                ]
+            -- , div []
+            --     [ a
+            --         [ href "/#/services"
+            --         ]
+            --         [ text "Services" ]
+            --     ]
+            -- , h2 [] [ text "Prices" ]
+            -- , div []
+            --     [ a
+            --         [ href "/#/prices"
+            --         ]
+            --         [ text "Prices" ]
+            --     ]
             , h2 [] [ text "BLOG" ]
             , div []
                 [ a

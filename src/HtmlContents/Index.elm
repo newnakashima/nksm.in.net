@@ -24,7 +24,7 @@ index =
                     , dd [] [ text "プログラマー" ]
                     ]
                 ]
-            , h2 [] [ text "Services" ]
+            -- , h2 [] [ text "Services" ]
             -- , div []
             --     [ a
             --         [ href "/#/services"
